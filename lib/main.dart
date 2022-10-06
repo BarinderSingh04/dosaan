@@ -1,4 +1,6 @@
-import 'package:dosaan/jessica%20_smith_screen.dart';
+import 'package:dosaan/login_screen.dart';
+import 'package:dosaan/screens/pre_form/pre_work_screen.dart';
+import 'package:dosaan/remarketing_evaluation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,62 +13,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Doosan',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         fontFamily: "ProductSans",
         primaryColor: const Color(0xfff26b23),
-      ),
-      home: const JessicaSmithScreen(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+        primaryColorDark: const Color(0xff231f20),
+        inputDecorationTheme: InputDecorationTheme(
+          hintStyle: const TextStyle(fontSize: 14, color: Color(0xff808080)),
+          suffixIconColor: Colors.black,
+          border: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 2,
             ),
-          ],
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).errorColor,
+              width: 2,
+            ),
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      home: const PreWorkScreen(),
     );
   }
 }

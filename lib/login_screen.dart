@@ -14,11 +14,9 @@ class LoginScreen extends StatelessWidget {
         },
         title: "Login",
       ),
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Padding(
+        padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 24.0),
+        child: ListView(
           children: [
             const Text(
               "Welcome Back!",
@@ -40,10 +38,8 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(height: 6),
             const TextField(
               decoration: InputDecoration(
-                  hintText: "Simranahitaan1997@gmail.com",
-                  hintStyle: TextStyle(fontSize: 14, color: Color(0xff808080)),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black))),
+                hintText: "Simranahitaan1997@gmail.com",
+              ),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -57,10 +53,8 @@ class LoginScreen extends StatelessWidget {
               obscureText: true,
               decoration: InputDecoration(
                 hintText: "********",
-                suffixIcon:
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.visibility)),
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black)),
+                suffixIcon: IconButton(
+                    onPressed: () {}, icon: const Icon(Icons.visibility)),
               ),
             ),
             const SizedBox(height: 28),
@@ -68,9 +62,11 @@ class LoginScreen extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {
-                   Navigator.push(
-                      context,
-               MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ForgotPasswordScreen()),
+                  );
                 },
                 child: const Text(
                   "Forgot Password?",
@@ -109,7 +105,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ],
         ),
-      )),
+      ),
     );
   }
 }
@@ -126,11 +122,11 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.black,
-        statusBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark,
       ),
       child: SizedBox.fromSize(
-        size: Size.fromHeight(padding + 46),
+        size: Size.fromHeight(padding + 50),
         child: DecoratedBox(
           decoration: const BoxDecoration(
             color: Colors.black,
@@ -138,13 +134,16 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
           child: Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(left: 16.0, bottom: 8.0),
+              padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
               child: Row(
                 children: [
                   IconButton(
-                      color: Colors.white,
-                      onPressed: onBackClick,
-                      icon: Image.asset("assets/images/arrow-left.png")),
+                    color: Colors.white,
+                    onPressed: onBackClick,
+                    icon: Image.asset(
+                      "assets/images/arrow-left.png",
+                    ),
+                  ),
                   const SizedBox(width: 8.0),
                   Text(
                     title,
