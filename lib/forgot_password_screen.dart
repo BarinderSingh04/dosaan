@@ -21,8 +21,8 @@ class ForgotPasswordScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Don’t worry! It happens. Please enter the address"
-              "\n associated with your account.",
+              "Don't worry! It happens. Please enter the address"
+              "associated with your account.",
               style: const TextStyle(fontSize: 14, color: const Color(0xff808080)),
             ),
             const SizedBox(height: 30),
@@ -44,16 +44,18 @@ class ForgotPasswordScreen extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                child: const Text(
-                  "Submit",
-                  style: TextStyle(fontSize: 18),
-                ),
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   primary: const Color(0xfff26b23),
                   fixedSize: Size(MediaQuery.of(context).size.width / 2, 50),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  
+                },
+                child: const Text(
+                  "Submit",
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ),
           ],
