@@ -7,7 +7,9 @@ class CheckMailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget(title: "Forgot Password", onBackClick: () {}),
+      appBar: AppbarWidget(title: "Forgot Password", onBackClick: () {
+         Navigator.of(context).pop();
+      }),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
         child: Column(
@@ -28,7 +30,7 @@ class CheckMailScreen extends StatelessWidget {
             const SizedBox(height: 38),
             Align(
                 alignment: Alignment.center,
-                child: Image.asset("assets/images/Group .png")),
+                child: Image.asset("assets/images/Group.png")),
             const SizedBox(height: 66),
             Align(
               alignment: Alignment.center,

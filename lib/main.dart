@@ -1,5 +1,4 @@
-import 'package:dosaan/data_summary_screen.dart';
-import 'package:dosaan/remarketing_evaluation.dart';
+import 'package:dosaan/jessica%20_smith_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,16 +17,13 @@ class MyApp extends StatelessWidget {
         fontFamily: "ProductSans",
         primaryColor: const Color(0xfff26b23),
       ),
-
-      home: const RemarketingEvaluation(),
+      home: const JessicaSmithScreen(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  
 
   final String title;
 
@@ -41,24 +36,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-     
       _counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       appBar: AppBar(
-      
         title: Text(widget.title),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-        
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -75,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), 
+      ),
     );
   }
 }

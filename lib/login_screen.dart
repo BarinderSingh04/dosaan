@@ -9,7 +9,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppbarWidget(
-        onBackClick: () {},
+        onBackClick: () {
+          Navigator.of(context).pop();
+        },
         title: "Login",
       ),
       body: SafeArea(

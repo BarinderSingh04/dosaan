@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_const
 
+import 'package:dosaan/check_mail_screen.dart';
 import 'package:dosaan/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,11 @@ class ForgotPasswordScreen extends StatelessWidget {
                   primary: const Color(0xfff26b23),
                   fixedSize: Size(MediaQuery.of(context).size.width / 2, 50),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                   Navigator.push(
+                      context,
+               MaterialPageRoute(builder: (context) => const CheckMailScreen()),);
+                },
               ),
             ),
           ],
