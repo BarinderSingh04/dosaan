@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_const
-
 import 'package:dosaan/login_screen.dart';
 import 'package:dosaan/my_profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -75,10 +73,10 @@ class ProfileScreen extends StatelessWidget {
             const SizedBox(height: 32),
             const Text(
               "Logout",
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
-                  color: const Color(0xfff26b23)),
+                  color: Color(0xfff26b23)),
             )
           ],
         ),
