@@ -34,6 +34,7 @@ class JessicaSmithScreen extends StatelessWidget {
                         Text("jessica_smith",
                         style: TextStyle(
                           color: Colors.white
+                          
                         ),),
                       ],
                     ),
