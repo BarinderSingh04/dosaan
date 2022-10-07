@@ -9,7 +9,7 @@ class TermsConditions extends StatelessWidget {
     return Scaffold(
       appBar: AppbarWidget(
         title: "Terms & Conditions",
-        onBackClick: (() {}),
+        onBackClick: () {},
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),

@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_const
 
+import 'package:dosaan/check_mail_screen.dart';
 import 'package:dosaan/login_screen.dart';
 import 'package:flutter/material.dart';
 

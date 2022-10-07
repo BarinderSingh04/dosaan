@@ -1,7 +1,5 @@
 import 'package:dosaan/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class RemarketingEvaluation extends StatelessWidget {
   const RemarketingEvaluation({Key? key}) : super(key: key);
@@ -19,32 +17,32 @@ class RemarketingEvaluation extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "07/18/2020",
                   style: TextStyle(color: Color(0xff269f75), fontSize: 20),
                 ),
                 Row(
                   children: [
-                    Text(
+                    const Text(
                       "Filter by",
                       style: TextStyle(color: Color(0xff808080), fontSize: 14),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     Image.asset("assets/images/remarket.png")
                   ],
                 )
               ],
             ),
-            SizedBox(height: 30),
-            Text(
+            const SizedBox(height: 30),
+            const Text(
               "Model",
               style: TextStyle(
                   fontSize: 16,
                   color: Color(0xff231f20),
                   fontWeight: FontWeight.w600),
             ),
-            SizedBox(height: 8),
-            TextField(
+            const SizedBox(height: 8),
+            const TextField(
               decoration: InputDecoration(
                   hintText: "734TWYRR",
                   hintStyle: TextStyle(color: Color(0xff808080)),
@@ -53,14 +51,14 @@ class RemarketingEvaluation extends StatelessWidget {
                   ),
                   border: OutlineInputBorder()),
             ),
-            SizedBox(height: 16),
-            Text("Serial number",
+            const SizedBox(height: 16),
+            const Text("Serial number",
                 style: TextStyle(
                     fontSize: 16,
                     color: Color(0xff231f20),
                     fontWeight: FontWeight.w600)),
-            SizedBox(height: 6),
-            TextField(
+            const SizedBox(height: 6),
+            const TextField(
               decoration: InputDecoration(
                   hintText: "HGS94877400",
                   hintStyle: TextStyle(color: Color(0xff808080)),
@@ -69,34 +67,34 @@ class RemarketingEvaluation extends StatelessWidget {
                   ),
                   border: OutlineInputBorder()),
             ),
-            SizedBox(height: 16),
-            Text("Hours",
+            const SizedBox(height: 16),
+            const Text("Hours",
                 style: TextStyle(
                     fontSize: 16,
                     color: Color(0xff231f20),
                     fontWeight: FontWeight.w600)),
-            SizedBox(height: 6),
-            TextField(
+            const SizedBox(height: 6),
+            const TextField(
               decoration: InputDecoration(
                   hintText: "342",
                   hintStyle: TextStyle(color: Color(0xff808080)),
                   border: OutlineInputBorder()),
             ),
-            SizedBox(height: 16),
-            Text("Year",
+            const SizedBox(height: 16),
+            const Text("Year",
                 style: TextStyle(
                     fontSize: 16,
                     color: Color(0xff231f20),
                     fontWeight: FontWeight.w600)),
-            SizedBox(height: 6),
-            TextField(
+            const SizedBox(height: 6),
+            const TextField(
               decoration: InputDecoration(
                   hintText: "2018",
                   hintStyle: TextStyle(color: Color(0xff808080)),
                   border: OutlineInputBorder()),
             ),
-            SizedBox(height: 16),
-            Text("No. of attachments",
+            const SizedBox(height: 16),
+            const Text("No. of attachments",
             style: TextStyle(
               fontWeight: FontWeight.w600
             ),),
