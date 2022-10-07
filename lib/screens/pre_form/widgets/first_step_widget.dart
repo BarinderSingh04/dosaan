@@ -85,6 +85,7 @@ class _FirstStepWidgetState extends State<FirstStepWidget> {
                                       radius: const Radius.circular(12),
                                       strokeCap: StrokeCap.round,
                                       child: FlutterLogo(size: 148),
+                                      
                                     ),
                                   )
                                 ],
