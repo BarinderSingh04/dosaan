@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/config.dart';
@@ -49,6 +50,50 @@ class _FirstStepWidgetState extends State<FirstStepWidget> {
                       setState(() {
                         selectedIndex = index;
                       });
+
+                      if (index == 2 || index == 3) {
+                        showModalBottomSheet(
+                          context: context,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                          builder: (context) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 24.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  const SizedBox(height: 24.0),
+                                  Text(
+                                    "Add Comment",
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context).primaryColorDark,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16.0),
+                                  SizedBox.fromSize(
+                                    size: const Size.fromHeight(200),
+                                    child: DottedBorder(
+                                      color: const Color(0xff808080),
+                                      strokeWidth: 1,
+                                      dashPattern: const [6, 6],
+                                      borderType: BorderType.RRect,
+                                      radius: const Radius.circular(12),
+                                      strokeCap: StrokeCap.round,
+                                      child: FlutterLogo(size: 148),
+                                      
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }
                     },
                   );
                 },
