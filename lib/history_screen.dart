@@ -111,7 +111,7 @@ class HistoryItem extends StatelessWidget {
               Text(
                 date,
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 16,
                   color: Color(0xff269f75),
                 ),
               ),
