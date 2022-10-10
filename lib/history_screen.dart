@@ -38,7 +38,6 @@ class HistoryScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 18),
-            const HistoryItem(
             const historyItem(
               name: "Mini Excavator",
               date: "18/07/2020",
