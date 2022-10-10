@@ -1,5 +1,3 @@
-import 'package:dosaan/login_screen.dart';
-import 'package:dosaan/screens/pre_form/pre_work_screen.dart';
 import 'package:dosaan/remarketing_evaluation.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +39,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const PreWorkScreen(),
+      home: const RemarketingEvaluation(),
     );
   }
 }

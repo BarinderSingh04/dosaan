@@ -84,10 +84,65 @@ class _FirstStepWidgetState extends State<FirstStepWidget> {
                                       borderType: BorderType.RRect,
                                       radius: const Radius.circular(12),
                                       strokeCap: StrokeCap.round,
-                                      child: FlutterLogo(size: 148),
-                                      
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: const [
+                                            Icon(
+                                              Icons.photo_camera,
+                                              color: Color(0xfff26b23),
+                                            ),
+                                            SizedBox(height: 4),
+                                            Text(
+                                              "Take a Picture",
+                                              style: TextStyle(
+                                                  color: Color(0xff808080)),
+                                            ),
+                                            SizedBox(height: 4),
+                                            Text(
+                                              "Size 1.84kb",
+                                              style: TextStyle(
+                                                  color: Color(0xff808080)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  )
+                                  ),
+                                  const SizedBox(height: 18),
+                                  TextField(
+                                    maxLines: 3,
+                                    decoration: InputDecoration(
+                                      
+                                        hintText: "Add Comment",
+                                        hintStyle:
+                                            const TextStyle(color: Color(0xff808080)),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(5)
+                                        )),
+                                  ),
+                                  const SizedBox(height: 36),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: ElevatedButton(
+                                      child: const Text(
+                                        "Submit",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        primary: const Color(0xfff26b23),
+                                        fixedSize: Size(
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                            50),
+                                      ),
+                                      onPressed: () {},
+                                    ),
+                                  ),
                                 ],
                               ),
                             );

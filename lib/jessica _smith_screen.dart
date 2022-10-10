@@ -13,7 +13,7 @@ class JessicaSmithScreen extends StatelessWidget {
             children: [
               Container(
               
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.black
                 ),
                 child: Row(
@@ -49,8 +49,8 @@ class JessicaSmithScreen extends StatelessWidget {
               ),
               const SizedBox(height: 14),
               Image.asset("assets/images/Mask  3079.png"),
-              SizedBox(height: 32),
-              Text(
+              const SizedBox(height: 32),
+              const Text(
                 "Select Machine Type",
                 style: TextStyle(
                     color: Color(0xff231f20),
