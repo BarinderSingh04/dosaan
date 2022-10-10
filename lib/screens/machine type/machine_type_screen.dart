@@ -1,4 +1,3 @@
-import 'package:dosaan/home_screen.dart';
 import 'package:dosaan/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -42,23 +41,23 @@ class _MachineTypeScreenState extends State<MachineTypeScreen> {
               ],
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: GridView.builder(
-                itemCount: 6,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.9,
-                  mainAxisSpacing: 10.0,
-                  crossAxisSpacing: 16.0,
-                ),
-                itemBuilder: (context, index) {
-                  return const MachineItem();
-                },
-              ),
-            ),
-          ),
+          // Expanded(
+          //   child: Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          //     child: GridView.builder(
+          //       itemCount: 6,
+          //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //         crossAxisCount: 2,
+          //         childAspectRatio: 0.9,
+          //         mainAxisSpacing: 10.0,
+          //         crossAxisSpacing: 16.0,
+          //       ),
+          //       itemBuilder: (context, index) {
+          //         return const MachineItem();
+          //       },
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -39,6 +39,7 @@ class HistoryScreen extends StatelessWidget {
             ),
             const SizedBox(height: 18),
             const HistoryItem(
+            const historyItem(
               name: "Mini Excavator",
               date: "18/07/2020",
               model: "734TWYRR",
@@ -46,7 +47,7 @@ class HistoryScreen extends StatelessWidget {
               year: "2018",
             ),
             const SizedBox(height: 14),
-            const HistoryItem(
+            const historyItem(
               name: "Mini Excavator",
               date: "18/07/2020",
               model: "734TWYRR",
@@ -54,7 +55,7 @@ class HistoryScreen extends StatelessWidget {
               year: "2018",
             ),
             const SizedBox(height: 14),
-            const HistoryItem(
+            const historyItem(
               name: "Mini Excavator",
               date: "18/07/2020",
               model: "734TWYRR",
@@ -68,14 +69,13 @@ class HistoryScreen extends StatelessWidget {
   }
 }
 
-class HistoryItem extends StatelessWidget {
+class historyItem extends StatelessWidget {
   final String name;
   final String date;
   final String model;
   final String miles;
   final String year;
-
-  const HistoryItem({
+  const historyItem({
     Key? key,
     required this.name,
     required this.date,
@@ -89,11 +89,8 @@ class HistoryItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(
-          color: const Color(0xffd7dae0),
-        ),
-      ),
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: const Color(0xffd7dae0))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -103,30 +100,25 @@ class HistoryItem extends StatelessWidget {
               Text(
                 name,
                 style: const TextStyle(
-                  fontSize: 20,
-                  color: Color(0xfff26b23),
-                  fontWeight: FontWeight.w600,
-                ),
+                    fontSize: 20,
+                    color: Color(0xfff26b23),
+                    fontWeight: FontWeight.w600),
               ),
               Text(
                 date,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Color(0xff269f75),
-                ),
+                style: const TextStyle(fontSize: 14, color: Color(0xff269f75)),
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Text(
             model,
             style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Color(0xff231f20),
-            ),
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Color(0xff231f20)),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -140,7 +132,7 @@ class HistoryItem extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
