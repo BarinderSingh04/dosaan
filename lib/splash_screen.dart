@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:dosaan/onboarding_screen.dart';
 import 'package:dosaan/home_screen.dart';
@@ -8,14 +7,14 @@ import 'package:dosaan/services/local_storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DoosanScreen extends ConsumerStatefulWidget {
-  const DoosanScreen({Key? key}) : super(key: key);
+class SplashScreen extends ConsumerStatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<DoosanScreen> createState() => _DoosanScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _DoosanScreenState extends ConsumerState<DoosanScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();

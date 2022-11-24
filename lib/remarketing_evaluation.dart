@@ -1,24 +1,41 @@
-import 'package:dosaan/config/config.dart';
 import 'package:dosaan/login_screen.dart';
 import 'package:dosaan/screens/pre_form/pre_work_screen.dart';
+import 'package:dosaan/services/machinetype_service.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
+import 'models/machine.dart';
 import 'screens/filter/filter_screen.dart';
 
-class RemarketingEvaluation extends StatefulWidget {
-  const RemarketingEvaluation({Key? key}) : super(key: key);
+final modelsProvider =
+    FutureProvider.autoDispose.family<List<Model>, int>((ref, id) async {
+  return ref.watch(machineServiceProvider).getModels(id);
+});
+
+final serialsProvider =
+    FutureProvider.autoDispose.family<List<Serial>, int>((ref, id) async {
+  return ref.watch(machineServiceProvider).getSerials(id);
+});
+
+class RemarketingEvaluation extends ConsumerStatefulWidget {
+  final Machine? machine;
+  const RemarketingEvaluation({Key? key, this.machine}) : super(key: key);
 
   @override
-  State<RemarketingEvaluation> createState() => _RemarketingEvaluationState();
+  ConsumerState<RemarketingEvaluation> createState() =>
+      _RemarketingEvaluationState();
 }
 
-class _RemarketingEvaluationState extends State<RemarketingEvaluation> {
+class _RemarketingEvaluationState extends ConsumerState<RemarketingEvaluation> {
   DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
+    final modelsState = ref.watch(modelsProvider(widget.machine!.id));
+    final serialsState = ref.watch(serialsProvider(widget.machine!.id));
+
     return Scaffold(
       appBar: AppbarWidget(
         title: "Remarketing Evaluation",
@@ -64,7 +81,8 @@ class _RemarketingEvaluationState extends State<RemarketingEvaluation> {
                                 selectedDay: DateTime.now(),
                               ),
                             ),
-                          ).then((value) {
+                          )
+                              .then((value) {
                             setState(() {
                               _selectedDate = value ?? DateTime.now();
                             });
@@ -84,15 +102,24 @@ class _RemarketingEvaluationState extends State<RemarketingEvaluation> {
                     fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 8),
-              dropDownWidget(Config.models, "734TWYRR"),
+              dropDonwModelWidget(
+                modelsState,
+                "HGS94877400",
+              ),
               const SizedBox(height: 16),
-              const Text("Serial number",
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xff231f20),
-                      fontWeight: FontWeight.w600)),
+              const Text(
+                "Serial number",
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color(0xff231f20),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               const SizedBox(height: 6),
-              dropDownWidget(Config.serialNumber, "HGS94877400"),
+              dropDownWidget(
+                serialsState,
+                "HGS94877400",
+              ),
               const SizedBox(height: 16),
               const Text("Hours",
                   style: TextStyle(
@@ -215,20 +242,104 @@ class _RemarketingEvaluationState extends State<RemarketingEvaluation> {
     );
   }
 
-  Widget dropDownWidget(List<String> list, String hint) {
-    return DropdownButtonFormField<String>(
-      decoration: InputDecoration(hintText: hint),
-      items: list
-          .map(
-            (e) => DropdownMenuItem(
-              value: e,
-              child: Text(e),
+  Widget dropDownWidget(AsyncValue<List<Serial>> serialState, String hint) {
+    return DropdownButtonFormField<int>(
+      isExpanded: true,
+      decoration: InputDecoration(
+        hintText: hint,
+      ),
+      items: serialState.when(
+        data: (data) {
+          return data
+              .map(
+                (e) => DropdownMenuItem(
+                  value: e.id,
+                  child: Text(e.name),
+                ),
+              )
+              .toList();
+        },
+        error: (error, st) {
+          return [
+            DropdownMenuItem(
+              child: Text(
+                error.toString(),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          )
-          .toList(),
+          ];
+        },
+        loading: () {
+          return [
+            DropdownMenuItem(
+              child: Row(
+                children: const [
+                  Text("Please wait..."),
+                ],
+              ),
+            ),
+          ];
+        },
+      ),
       onChanged: (_) {},
     );
   }
+
+  Widget dropDonwModelWidget(AsyncValue<List<Model>> serialState, String hint) {
+    return DropdownButtonFormField<int>(
+      isExpanded: true,
+      decoration: InputDecoration(hintText: hint),
+      items: serialState.when(
+        data: (data) {
+          return data
+              .map(
+                (e) => DropdownMenuItem(
+                  value: e.id,
+                  child: Text(e.name),
+                ),
+              )
+              .toList();
+        },
+        error: (error, st) {
+          return [
+            DropdownMenuItem(
+              child: Text(
+                error.toString(),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ];
+        },
+        loading: () {
+          return [
+            DropdownMenuItem(
+              child: Row(
+                children: const [
+                  Text("Please wait..."),
+                ],
+              ),
+            ),
+          ];
+        },
+      ),
+      onChanged: (_) {},
+    );
+  }
+}
+
+Widget dropDownModellWidget(List<Model> list, String hint) {
+  return DropdownButtonFormField<int>(
+    decoration: InputDecoration(hintText: hint),
+    items: list
+        .map(
+          (e) => DropdownMenuItem(
+            value: e.id,
+            child: Text(e.name),
+          ),
+        )
+        .toList(),
+    onChanged: (_) {},
+  );
 }
 
 class UploadWidget extends StatelessWidget {

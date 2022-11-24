@@ -1,4 +1,4 @@
-import 'package:dosaan/doosan_screen.dart';
+import 'package:dosaan/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const DoosanScreen(),
+      home: const SplashScreen(),
     );
   }
 }

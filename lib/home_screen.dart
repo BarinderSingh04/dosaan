@@ -1,5 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dosaan/models/machine_type.dart';
+import 'package:dosaan/models/machine.dart';
 import 'package:dosaan/models/user.dart';
 import 'package:dosaan/profile_screen.dart';
 import 'package:dosaan/remarketing_evaluation.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'history_screen.dart';
 
-final machineListProvider = FutureProvider<List<MachineType>>((ref) async {
+final machineListProvider = FutureProvider<List<Machine>>((ref) async {
   return ref.watch(machineServiceProvider).getMachineType();
 });
 
@@ -136,7 +137,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           final machineType = data[index];
-                          return MachineItem(machineType: machineType,);
+                          return MachineItem(
+                            machineType: machineType,
+                          );
                         },
                         separatorBuilder: (context, index) {
                           return const SizedBox(width: 16.0);
@@ -208,7 +211,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 }
 
 class MachineItem extends StatelessWidget {
-  final MachineType machineType;
+  final Machine machineType;
   const MachineItem({
     Key? key,
     required this.machineType,
@@ -220,7 +223,9 @@ class MachineItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const RemarketingEvaluation(),
+            builder: (context) => RemarketingEvaluation(
+              machine: machineType,
+            ),
           ),
         );
       },
@@ -233,8 +238,15 @@ class MachineItem extends StatelessWidget {
               color: Colors.black,
             ),
             child: Center(
-              child: Image.network(
-                machineType.image,
+              child: CachedNetworkImage(
+                imageUrl: machineType.image,
+                placeholder: (context, url) => const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.grey),
+                ),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.white,
+                ),
                 width: 100,
                 height: 100,
               ),
@@ -315,7 +327,7 @@ class HomeAppBar extends ConsumerWidget implements PreferredSizeWidget {
                               ),
                             ),
                             const SizedBox(height: 2),
-                             Text(
+                            Text(
                               user?.email ?? "User@gmail.com",
                               style: const TextStyle(color: Colors.white),
                             ),

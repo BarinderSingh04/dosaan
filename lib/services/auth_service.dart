@@ -26,8 +26,8 @@ class AuthService {
           "password": password,
         },
       );
-      final String token = jsonResponse["token"];
-      await _localStorageService.saveToken(token);
+      final Map<String, dynamic> data = jsonResponse["data"];
+      await _localStorageService.saveToken(data["token"]);
       final User user = await getUserInfo();
       return user;
     } catch (e) {
@@ -39,7 +39,7 @@ class AuthService {
     try {
       final jsonResponse =
           await _apiService.getRequest("/surveyor", headersRequired: true);
-      final user = User.fromJson(jsonResponse);
+      final user = User.fromJson(jsonResponse["data"]);
       _localStorageService.saveUserDetails(user);
       return user;
     } catch (e) {

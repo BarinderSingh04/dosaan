@@ -25,10 +25,10 @@ class DioExceptions implements Exception {
         message = "Receive timeout in connection with API server";
         break;
       case DioErrorType.response:
-        final response = dioError.response?.data ?? "Something went wrong!";
+        final response = dioError.response?.data["message"];
         message = _handleError(
           dioError.response!.statusCode,
-          response.toString(),
+          response ?? "Something went wrong!",
         );
         break;
       case DioErrorType.sendTimeout:

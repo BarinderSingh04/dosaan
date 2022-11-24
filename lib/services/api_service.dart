@@ -47,11 +47,12 @@ class ApiService {
         ),
       );
       final jsonResponse = response.data;
-      final String? error = jsonResponse["error"];
-      if (error == null) {
+      final status = jsonResponse["status"];
+      final message = jsonResponse["message"];
+      if (status) {
         return jsonResponse;
       } else {
-        return Future.error(error);
+        return Future.error(message);
       }
     } on DioError catch (error) {
       throw DioExceptions.fromDioError(error);

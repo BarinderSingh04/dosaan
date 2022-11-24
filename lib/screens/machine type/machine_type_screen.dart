@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dosaan/home_screen.dart';
 import 'package:dosaan/login_screen.dart';
-import 'package:dosaan/models/machine_type.dart';
+import 'package:dosaan/models/machine.dart';
 import 'package:dosaan/remarketing_evaluation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MachineTypeScreen extends ConsumerStatefulWidget {
   const MachineTypeScreen({Key? key}) : super(key: key);
@@ -36,7 +38,7 @@ class _MachineTypeScreenState extends ConsumerState<MachineTypeScreen> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
-                  primary: const Color(0xfff26b23),
+                  backgroundColor: const Color(0xfff26b23),
                   fixedSize: Size(MediaQuery.of(context).size.width / 2, 50),
                 ),
                 onPressed: () {
@@ -134,7 +136,7 @@ class _MachineTypeScreenState extends ConsumerState<MachineTypeScreen> {
 class MachineTypeItem extends StatelessWidget {
   final bool isSelected;
   final BoxConstraints constraints;
-  final MachineType machineType;
+  final Machine machineType;
 
   const MachineTypeItem(
       {Key? key,
@@ -171,8 +173,16 @@ class MachineTypeItem extends StatelessWidget {
                             : null,
                       ),
                       child: Center(
-                        child: Image.network(
-                          machineType.image,
+                        child: CachedNetworkImage(
+                          imageUrl: machineType.image,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.grey),
+                          ),
+                          errorWidget: (context, url, error) => const Icon(
+                            Icons.error,
+                            color: Colors.white,
+                          ),
                           width: 100,
                           height: 100,
                         ),
