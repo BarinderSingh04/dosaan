@@ -53,8 +53,7 @@ class ResetPasswordScreen extends StatelessWidget {
             alignment: Alignment.center,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                elevation: 0,
-                primary: const Color(0xfff26b23),
+                elevation: 0, backgroundColor: const Color(0xfff26b23),
                 fixedSize: Size(MediaQuery.of(context).size.width / 2, 50),
               ),
               onPressed: () {

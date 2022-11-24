@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:dosaan/login_screen.dart';
 import 'package:dosaan/screens/pre_form/pre_work_screen.dart';
 import 'package:dosaan/services/machinetype_service.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import 'models/machine.dart';
 import 'screens/filter/filter_screen.dart';
@@ -30,6 +33,7 @@ class RemarketingEvaluation extends ConsumerStatefulWidget {
 
 class _RemarketingEvaluationState extends ConsumerState<RemarketingEvaluation> {
   DateTime _selectedDate = DateTime.now();
+  List<File> imageList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -160,41 +164,62 @@ class _RemarketingEvaluationState extends ConsumerState<RemarketingEvaluation> {
               const SizedBox(height: 16.0),
               SizedBox.fromSize(
                 size: const Size.fromHeight(160),
-                child: DottedBorder(
-                  color: const Color(0xff808080),
-                  strokeWidth: 1,
-                  dashPattern: const [8, 8],
-                  borderType: BorderType.RRect,
-                  radius: const Radius.circular(5),
-                  strokeCap: StrokeCap.round,
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.photo_camera,
-                          color: Color(0xfff26b23),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "Take a Picture",
-                          style: TextStyle(color: Color(0xff808080)),
-                        ),
-                      ],
+                child: InkWell(
+                  onTap: () async {
+                    XFile? pickedImage = await showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const ImagePickerOptions();
+                      },
+                    );
+                    if (pickedImage != null) {
+                      setState(() {
+                        imageList.add(File(pickedImage.path));
+                      });
+                    }
+                  },
+                  child: DottedBorder(
+                    color: const Color(0xff808080),
+                    strokeWidth: 1,
+                    dashPattern: const [8, 8],
+                    borderType: BorderType.RRect,
+                    radius: const Radius.circular(5),
+                    strokeCap: StrokeCap.round,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          Icon(
+                            Icons.photo_camera,
+                            color: Color(0xfff26b23),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            "Take a Picture",
+                            style: TextStyle(color: Color(0xff808080)),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 16),
-              const UploadWidget(
-                fileName: "Attachments01",
-                progress: 0.4,
-              ),
-              const SizedBox(height: 16),
-              const UploadWidget(
-                fileName: "Attachments02",
-                progress: 0.3,
+              Wrap(
+                runSpacing: 16.0,
+                children: imageList
+                    .map(
+                      (e) => UploadWidget(
+                        fileName: e.path,
+                        onClick: () {
+                          setState(() {
+                            imageList.remove(e);
+                          });
+                        },
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 22),
               const Text(
@@ -216,7 +241,7 @@ class _RemarketingEvaluationState extends ConsumerState<RemarketingEvaluation> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
-                    primary: const Color(0xfff26b23),
+                    backgroundColor: const Color(0xfff26b23),
                     fixedSize: Size(MediaQuery.of(context).size.width / 2, 50),
                   ),
                   onPressed: () {
@@ -344,17 +369,18 @@ Widget dropDownModellWidget(List<Model> list, String hint) {
 
 class UploadWidget extends StatelessWidget {
   final String fileName;
-  final double progress;
+  final VoidCallback onClick;
 
   const UploadWidget({
     Key? key,
     required this.fileName,
-    required this.progress,
+    required this.onClick,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: const BoxConstraints.tightFor(height: 90),
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
@@ -364,47 +390,86 @@ class UploadWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4.0),
+            child: Image.file(
+              File(fileName),
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(width: 8.0),
           Expanded(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      fileName,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff231f20),
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    const Text(
-                      "Size 1.84kb",
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Color(0xff808080),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                LinearProgressIndicator(
-                  minHeight: 3,
-                  backgroundColor: const Color(0xfff0f0f0),
-                  color: const Color(0xfff26b23),
-                  value: progress,
-                ),
-              ],
+            child: Text(
+              fileName.split("/").last,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color(0xff231f20),
+                fontSize: 16,
+              ),
             ),
           ),
           const SizedBox(width: 24.0),
-          Column(
-            children: [
-              const Icon(Icons.cancel),
-              const SizedBox(height: 10.0),
-              Text("${progress * 100}%"),
-            ],
-          )
+          IconButton(
+            icon: const Icon(Icons.cancel),
+            onPressed: onClick,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ImagePickerOptions extends StatelessWidget {
+  const ImagePickerOptions({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(
+        "Select source",
+        style: TextStyle(color: Theme.of(context).primaryColor),
+      ),
+      content: Wrap(
+        children: [
+          ListTile(
+            title: const Text(
+              "Camera",
+              style: TextStyle(color: Colors.black),
+            ),
+            leading: const Icon(Icons.camera_alt, color: Colors.black),
+            onTap: () {
+              final picker = ImagePicker();
+              picker
+                  .pickImage(source: ImageSource.camera, imageQuality: 70)
+                  .then((value) {
+                Navigator.of(context).pop(value);
+              });
+            },
+          ),
+          const Divider(
+            color: Colors.white,
+          ),
+          ListTile(
+            title: const Text(
+              "Gallery",
+              style: TextStyle(color: Colors.black),
+            ),
+            leading: const Icon(Icons.image, color: Colors.black),
+            onTap: () {
+              final picker = ImagePicker();
+              picker
+                  .pickImage(source: ImageSource.gallery, imageQuality: 70)
+                  .then((value) {
+                Navigator.of(context).pop(value);
+              });
+            },
+          ),
         ],
       ),
     );

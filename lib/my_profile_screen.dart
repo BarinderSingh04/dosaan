@@ -110,8 +110,7 @@ class MyProfileScreen extends ConsumerWidget {
                   style: TextStyle(fontSize: 18),
                 ),
                 style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  primary: const Color(0xfff26b23),
+                  elevation: 0, backgroundColor: const Color(0xfff26b23),
                   fixedSize: Size(MediaQuery.of(context).size.width / 2, 50),
                 ),
                 onPressed: () {

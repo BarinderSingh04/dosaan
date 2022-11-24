@@ -51,6 +51,12 @@ class MyApp extends StatelessWidget {
               width: 2,
             ),
           ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).errorColor,
+              width: 2,
+            ),
+          ),
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).errorColor,

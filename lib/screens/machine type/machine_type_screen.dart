@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dosaan/home_screen.dart';
 import 'package:dosaan/login_screen.dart';
 import 'package:dosaan/models/machine.dart';
-import 'package:dosaan/remarketing_evaluation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
+
+import '../../remarketing_evaluation.dart';
 
 class MachineTypeScreen extends ConsumerStatefulWidget {
   const MachineTypeScreen({Key? key}) : super(key: key);
@@ -42,9 +42,12 @@ class _MachineTypeScreenState extends ConsumerState<MachineTypeScreen> {
                   fixedSize: Size(MediaQuery.of(context).size.width / 2, 50),
                 ),
                 onPressed: () {
+                  final machines = machineListState.asData?.value ?? [];
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const RemarketingEvaluation(),
+                      builder: (context) => RemarketingEvaluation(
+                        machine: machines[selectedIndex],
+                      ),
                     ),
                   );
                 },

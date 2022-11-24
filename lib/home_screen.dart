@@ -101,7 +101,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ),
                       TextButton(
                         style: TextButton.styleFrom(
-                          primary: Theme.of(context).primaryColor,
+                          foregroundColor: Theme.of(context).primaryColor,
                         ),
                         onPressed: () {
                           Navigator.of(context).push(
