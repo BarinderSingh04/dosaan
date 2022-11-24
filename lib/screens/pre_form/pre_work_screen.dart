@@ -1,3 +1,5 @@
+import 'package:dosaan/login_screen.dart';
+import 'package:dosaan/rating_screen.dart';
 import 'package:dosaan/screens/pre_form/first_page.dart';
 import 'package:dosaan/screens/pre_form/second_page.dart';
 import 'package:dosaan/screens/pre_form/widgets/stepper_widget.dart';
@@ -17,18 +19,11 @@ class _PreWorkScreenState extends State<PreWorkScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: IconButton(
-          color: Colors.white,
-          onPressed: () {},
-          icon: Image.asset(
-            "assets/images/arrow-left.png",
-          ),
-        ),
-        backgroundColor: Colors.black,
-        centerTitle: false,
-        title: const Text("Pre-work"),
+      appBar: AppbarWidget(
+        title: "Pre-work",
+        onBackClick: () {
+          Navigator.of(context).pop();
+        },
       ),
       body: SafeArea(
         child: Column(
@@ -55,7 +50,7 @@ class _PreWorkScreenState extends State<PreWorkScreen> {
             ),
             Container(
               color: Colors.white,
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
@@ -63,6 +58,13 @@ class _PreWorkScreenState extends State<PreWorkScreen> {
                   fixedSize: Size(MediaQuery.of(context).size.width / 2, 50),
                 ),
                 onPressed: () {
+                  if (selectedIndex == 2) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const RatingScreen(),
+                      ),
+                    );
+                  }
                   controller.nextPage(
                       duration: const Duration(milliseconds: 250),
                       curve: Curves.easeInOut);

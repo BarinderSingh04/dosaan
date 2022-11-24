@@ -8,7 +8,7 @@ class FirstPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemCount: 5,
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24.0),
       itemBuilder: (context, index) => const FirstStepWidget(),
       separatorBuilder: (context, index) => const SizedBox(height: 16.0),
     );

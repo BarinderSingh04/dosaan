@@ -1,21 +1,33 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dosaan/models/machine_type.dart';
+import 'package:dosaan/models/user.dart';
+import 'package:dosaan/profile_screen.dart';
+import 'package:dosaan/remarketing_evaluation.dart';
+import 'package:dosaan/screens/machine%20type/machine_type_screen.dart';
+import 'package:dosaan/services/machinetype_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'history_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+final machineListProvider = FutureProvider<List<MachineType>>((ref) async {
+  return ref.watch(machineServiceProvider).getMachineType();
+});
+
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _current = 0;
 
   @override
   Widget build(BuildContext context) {
+    final machineListState = ref.watch(machineListProvider);
+
     return Scaffold(
       appBar: const HomeAppBar(),
       body: SafeArea(
@@ -28,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               items: List.generate(
                 3,
                 (index) => Image.asset(
-                  "assets/images/Mask  3079.png",
+                  "assets/images/Mask.png",
                   fit: BoxFit.fill,
                 ),
               ),
@@ -58,16 +70,17 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(3, (entry) {
                 return Container(
-                    width: 8.0,
-                    height: 8.0,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 4.0, horizontal: 4.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _current == entry
-                          ? Theme.of(context).primaryColor
-                          : const Color.fromARGB(255, 226, 226, 226),
-                    ));
+                  width: 8.0,
+                  height: 8.0,
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 4.0, horizontal: 4.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _current == entry
+                        ? Theme.of(context).primaryColor
+                        : const Color.fromARGB(255, 226, 226, 226),
+                  ),
+                );
               }).toList(),
             ),
             Column(
@@ -89,10 +102,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: TextButton.styleFrom(
                           primary: Theme.of(context).primaryColor,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const MachineTypeScreen(),
+                            ),
+                          );
+                        },
                         child: Row(
                           children: const [
-                            Text("See All"),
+                            Text(
+                              "See All",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             Icon(Icons.chevron_right),
                           ],
                         ),
@@ -101,19 +126,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const SizedBox(height: 6.0),
-                SizedBox.fromSize(
-                  size: const Size.fromHeight(200),
-                  child: ListView.separated(
-                    itemCount: 3,
-                    padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return const MachineItem();
-                    },
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(width: 16.0);
-                    },
-                  ),
+                machineListState.when(
+                  data: (data) {
+                    return SizedBox.fromSize(
+                      size: const Size.fromHeight(180),
+                      child: ListView.separated(
+                        itemCount: data.length,
+                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          final machineType = data[index];
+                          return MachineItem(machineType: machineType,);
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(width: 16.0);
+                        },
+                      ),
+                    );
+                  },
+                  error: (error, stackTrace) {
+                    return Text(error.toString());
+                  },
+                  loading: () {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
                 ),
                 const SizedBox(height: 24.0),
                 Align(
@@ -132,9 +170,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 16.0),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
               child: Wrap(
                 runSpacing: 16.0,
                 children: const [
@@ -170,44 +208,58 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class MachineItem extends StatelessWidget {
+  final MachineType machineType;
   const MachineItem({
     Key? key,
+    required this.machineType,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          constraints: BoxConstraints.tight(const Size(220, 170)),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
-            color: Colors.black,
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const RemarketingEvaluation(),
           ),
-          child: const Icon(
-            Icons.construction,
-            color: Colors.grey,
-            size: 100,
+        );
+      },
+      child: Column(
+        children: [
+          Container(
+            constraints: BoxConstraints.tight(const Size(210, 150)),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.black,
+            ),
+            child: Center(
+              child: Image.network(
+                machineType.image,
+                width: 100,
+                height: 100,
+              ),
+            ),
           ),
-        ),
-        const SizedBox(height: 8.0),
-        Text(
-          "Mini Excavator",
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).primaryColor,
-          ),
-        )
-      ],
+          const SizedBox(height: 8.0),
+          Text(
+            machineType.name,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).primaryColor,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
 
-class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+class HomeAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const HomeAppBar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider);
     final padding = MediaQuery.of(context).padding.top;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
@@ -224,46 +276,55 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox.fromSize(
-              size: const Size.fromHeight(60),
+              size: const Size.fromHeight(56),
               child: Padding(
                 padding: const EdgeInsets.only(
                   left: 24.0,
-                  bottom: 16.0,
+                  bottom: 8.0,
                   right: 16.0,
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const CircleAvatar(
-                      radius: 28,
-                      backgroundImage: AssetImage(
-                        "assets/images/avatar.png",
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ProfileScreen(),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
-                            "Jessica Smith",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                    );
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const CircleAvatar(
+                        radius: 28,
+                        backgroundImage: AssetImage(
+                          "assets/images/avatar.png",
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              user?.name ?? "User",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 2),
-                          Text(
-                            "jessica_smith",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
+                            const SizedBox(height: 2),
+                             Text(
+                              user?.email ?? "User@gmail.com",
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Image.asset("assets/images/Certified.png")
-                  ],
+                      Image.asset("assets/images/Certified.png")
+                    ],
+                  ),
                 ),
               ),
             ),

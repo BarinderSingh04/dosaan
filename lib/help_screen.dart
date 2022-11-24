@@ -7,20 +7,21 @@ class HelpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget(title: "Help", onBackClick: () {}),
-      
+      appBar: AppbarWidget(
+        title: "Help",
+        onBackClick: () {
+          Navigator.of(context).pop();
+        },
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
         child: Column(
           children: [
-            const SizedBox(height: 60),
+            const SizedBox(height: 24),
             Container(
               padding: const EdgeInsets.all(16),
-              constraints: BoxConstraints.tight(const Size.fromHeight(95)),
               decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xffd7dae0),
-                  ),
+                  border: Border.all(color: const Color(0xffd7dae0)),
                   borderRadius: BorderRadius.circular(5)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,15 +1,17 @@
 import 'package:dosaan/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class TermsConditions extends StatelessWidget {
-  const TermsConditions({Key? key}) : super(key: key);
+class TermsConditionScreen extends StatelessWidget {
+  const TermsConditionScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppbarWidget(
         title: "Terms & Conditions",
-        onBackClick: () {},
+        onBackClick: () {
+          Navigator.of(context).pop();
+        },
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),

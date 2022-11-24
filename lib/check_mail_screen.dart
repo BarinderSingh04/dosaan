@@ -1,4 +1,5 @@
 import 'package:dosaan/login_screen.dart';
+import 'package:dosaan/reset_password_screen.dart';
 import 'package:flutter/material.dart';
 
 class CheckMailScreen extends StatelessWidget {
@@ -7,9 +8,11 @@ class CheckMailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget(title: "Forgot Password", onBackClick: () {
-         Navigator.of(context).pop();
-      }),
+      appBar: AppbarWidget(
+          title: "Forgot Password",
+          onBackClick: () {
+            Navigator.of(context).pop();
+          }),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
         child: Column(
@@ -35,16 +38,23 @@ class CheckMailScreen extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                child: const Text(
-                  "Open email app",
-                  style: TextStyle(fontSize: 18),
-                ),
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   primary: const Color(0xfff26b23),
                   fixedSize: Size(MediaQuery.of(context).size.width / 2, 50),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ResetPasswordScreen(),
+                    ),
+                  );
+                },
+                child: const Text(
+                  "Continue",
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ),
             const SizedBox(height: 36),

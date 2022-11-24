@@ -1,14 +1,15 @@
-// ignore_for_file: unnecessary_const
-
 import 'package:dosaan/login_screen.dart';
+import 'package:dosaan/models/user.dart';
 import 'package:dosaan/update_password_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyProfileScreen extends StatelessWidget {
+class MyProfileScreen extends ConsumerWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider);
     return Scaffold(
       appBar: AppbarWidget(
           title: "My Profile",
@@ -27,11 +28,13 @@ class MyProfileScreen extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 6),
-            const TextField(
-              decoration: InputDecoration(
-                  hintText: "SimranAhitaan",
-                  hintStyle: TextStyle(color: Color(0xfff26b23)),
-                  border: OutlineInputBorder()),
+            TextFormField(
+              initialValue: user?.name,
+              decoration: const InputDecoration(
+                hintText: "SimranAhitaan",
+                hintStyle: TextStyle(color: Color(0xfff26b23)),
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -39,11 +42,13 @@ class MyProfileScreen extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 6),
-            const TextField(
-              decoration: InputDecoration(
-                  hintText: "Simranahitaan1997@gmail.com",
-                  hintStyle: TextStyle(color: Color(0xfff26b23)),
-                  border: OutlineInputBorder()),
+            TextFormField(
+              initialValue: user?.email,
+              decoration: const InputDecoration(
+                hintText: "Simranahitaan1997@gmail.com",
+                hintStyle: TextStyle(color: Color(0xfff26b23)),
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -51,11 +56,12 @@ class MyProfileScreen extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 6),
-            const TextField(
-              decoration: InputDecoration(
-                  hintText: "91 3874 374 243",
-                  hintStyle: TextStyle(color: Color(0xfff26b23)),
-                  border: OutlineInputBorder()),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: "91 3874 374 243",
+                hintStyle: TextStyle(color: Color(0xfff26b23)),
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -63,12 +69,13 @@ class MyProfileScreen extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 6),
-            const TextField(
-              decoration: InputDecoration(
-                  hintText: "********",
-                  suffixIcon: Icon(Icons.visibility),
-                  hintStyle: TextStyle(color: Color(0xfff26b23)),
-                  border: OutlineInputBorder()),
+            TextFormField(
+              decoration: const InputDecoration(
+                hintText: "********",
+                suffixIcon: Icon(Icons.visibility),
+                hintStyle: TextStyle(color: Color(0xfff26b23)),
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 34),
             TextButton(
@@ -76,18 +83,20 @@ class MyProfileScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const UpdatePasswordScreen()),
+                    builder: (context) => const UpdatePasswordScreen(),
+                  ),
                 );
               },
               child: const Align(
                 alignment: Alignment.center,
-                child: const Text(
+                child: Text(
                   "CHANGE PASSWORD",
-                  style: const TextStyle(
-                      decoration: TextDecoration.underline,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black),
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ),
@@ -98,7 +107,7 @@ class MyProfileScreen extends StatelessWidget {
                 // ignore: sort_child_properties_last
                 child: const Text(
                   "Edit Password",
-                  style: const TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18),
                 ),
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
