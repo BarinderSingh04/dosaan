@@ -96,7 +96,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                         const SizedBox(height: 32),
                         const Text(
-                          "Username",
+                          "Email",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
@@ -106,12 +106,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ref.read(loginProvider.notifier).onSaveUsername,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Username can't be empty";
+                              return "Email field can't be empty";
                             }
                             return null;
                           },
                           decoration: const InputDecoration(
-                            hintText: "Simranahitaan1997@gmail.com",
+                            hintText: "Enter email address",
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -124,7 +124,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           height: 6,
                         ),
                         TextFormField(
-                          
                           obscuringCharacter: "*",
                           onSaved:
                               ref.read(loginProvider.notifier).onSavePassword,
@@ -136,7 +135,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           },
                           obscureText: obscured,
                           decoration: InputDecoration(
-                            
                             hintText: "********",
                             suffixIcon: IconButton(
                               onPressed: () {
@@ -176,7 +174,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           alignment: Alignment.center,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              elevation: 0, backgroundColor: const Color(0xfff26b23),
+                              elevation: 0,
+                              backgroundColor: const Color(0xfff26b23),
                               fixedSize: Size(
                                   MediaQuery.of(context).size.width / 2, 50),
                             ),
@@ -185,7 +184,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 _formKey.currentState!.save();
                                 ref.watch(loginProvider.notifier).login();
                               }
-                            
                             },
                             child: const Text(
                               "Log in",

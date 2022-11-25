@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           cursorColor: Color(0xfff26b23),
         ),
         inputDecorationTheme: InputDecorationTheme(
-          hintStyle: const TextStyle(fontSize: 14, color: Color(0xff808080)),
+          hintStyle: const TextStyle(color: Color(0xff808080)),
           suffixIconColor: Colors.black,
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(
