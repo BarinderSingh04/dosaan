@@ -1,16 +1,30 @@
 class Config {
-
- static final List<String> preWorkOptions = [
-    "Excellent",
-    "Very Good",
-    "Job Ready",
-    "Needs Repair",
-    "Remove and Replace",
+  static final List<String> preWorkOptions = [
+    "A. Excellent",
+    "B. Very Good",
+    "C. Job Ready",
+    "D. Needs Repair",
+    "E. Remove and Replace",
   ];
 
-   static final List<String> step2Options = [
+  static final List<String> models = [
+    "734TWYRR",
+    "954TWYRT",
+    "684TWYRF",
+    "394TWYRJ",
+    "104TWYRH",
+  ];
+
+  static final List<String> serialNumber = [
+    "HGS94877400",
+    "HJS94877410",
+    "HKS94877420",
+    "HCS94877430",
+    "HDS94877440",
+  ];
+
+  static final List<String> step2Options = [
     "Yes",
     "No",
   ];
-
 }

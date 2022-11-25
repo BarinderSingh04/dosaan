@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import '../../../config/config.dart';
 
 class FirstStepWidget extends StatefulWidget {
-  const FirstStepWidget({Key? key}) : super(key: key);
+  final String? title;
+  final bool isBlackTheme;
+  const FirstStepWidget({
+    Key? key,
+    this.title,
+    this.isBlackTheme = false,
+  }) : super(key: key);
 
   @override
   State<FirstStepWidget> createState() => _FirstStepWidgetState();
@@ -15,57 +21,74 @@ class _FirstStepWidgetState extends State<FirstStepWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Do you find yourself struggling more?",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16.0,
-              color: Theme.of(context).primaryColorDark,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.title ?? "Do you find yourself struggling more?",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16.0,
+            color: Theme.of(context).primaryColorDark,
           ),
-          const SizedBox(height: 12.0),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: const Color(0xfff8f9fd),
-              borderRadius: BorderRadius.circular(2.0),
-            ),
-            child: Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: List.generate(
-                Config.preWorkOptions.length,
-                (index) {
-                  final workOption = Config.preWorkOptions[index];
-                  return PreItem(
-                    text: workOption,
-                    isSelected: index == selectedIndex,
-                    onClick: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-
+        ),
+        const SizedBox(height: 12.0),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: widget.isBlackTheme
+                ? const Color(0xff131313)
+                : const Color(0xfff8f9fd),
+            borderRadius: widget.isBlackTheme
+                ? BorderRadius.circular(7.0)
+                : BorderRadius.circular(2.0),
+          ),
+          child: Wrap(
+            spacing: 8.0,
+            runSpacing: 8.0,
+            children: List.generate(
+              Config.preWorkOptions.length,
+              (index) {
+                final workOption = Config.preWorkOptions[index];
+                return PreItem(
+                  text: workOption,
+                  isBlackTheme: widget.isBlackTheme,
+                  isSelected: index == selectedIndex,
+                  onClick: () {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                    if (!widget.isBlackTheme) {
                       if (index == 2 || index == 3) {
                         showModalBottomSheet(
                           context: context,
+                          isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24.0),
                           ),
                           builder: (context) {
                             return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 24.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
+                              padding: MediaQuery.of(context)
+                                  .viewInsets
+                                  .copyWith(left: 24.0, right: 24.0),
+                              child: Wrap(
+                                runSpacing: 16.0,
                                 children: [
-                                  const SizedBox(height: 24.0),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Container(
+                                      width: 80,
+                                      height: 6,
+                                      margin: const EdgeInsets.only(top: 24.0),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffd6ddde),
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 32.0),
                                   Text(
                                     "Add Comment",
                                     style: TextStyle(
@@ -74,7 +97,15 @@ class _FirstStepWidgetState extends State<FirstStepWidget> {
                                       color: Theme.of(context).primaryColorDark,
                                     ),
                                   ),
-                                  const SizedBox(height: 16.0),
+                                  const TextField(
+                                    maxLines: 2,
+                                    textInputAction: TextInputAction.done,
+                                    decoration: InputDecoration(
+                                      hintText: "Type here….",
+                                      hintStyle: TextStyle(fontSize: 16),
+                                      border: OutlineInputBorder(),
+                                    ),
+                                  ),
                                   SizedBox.fromSize(
                                     size: const Size.fromHeight(200),
                                     child: DottedBorder(
@@ -101,46 +132,40 @@ class _FirstStepWidgetState extends State<FirstStepWidget> {
                                               style: TextStyle(
                                                   color: Color(0xff808080)),
                                             ),
-                                            SizedBox(height: 4),
-                                            Text(
-                                              "Size 1.84kb",
-                                              style: TextStyle(
-                                                  color: Color(0xff808080)),
-                                            ),
                                           ],
                                         ),
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 18),
-                                  TextField(
-                                    maxLines: 3,
-                                    decoration: InputDecoration(
-                                      
-                                        hintText: "Add Comment",
-                                        hintStyle:
-                                            const TextStyle(color: Color(0xff808080)),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(5)
-                                        )),
-                                  ),
-                                  const SizedBox(height: 36),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: ElevatedButton(
-                                      child: const Text(
-                                        "Submit",
-                                        style: TextStyle(fontSize: 18),
+                                  SafeArea(
+                                    bottom: true,
+                                    top: false,
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(bottom: 16.0),
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            elevation: 0, backgroundColor: const Color(0xfff26b23),
+                                            fixedSize: Size(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    2,
+                                                50),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text(
+                                            "Next",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      style: ElevatedButton.styleFrom(
-                                        elevation: 0,
-                                        primary: const Color(0xfff26b23),
-                                        fixedSize: Size(
-                                            MediaQuery.of(context).size.width /
-                                                2,
-                                            50),
-                                      ),
-                                      onPressed: () {},
                                     ),
                                   ),
                                 ],
@@ -149,14 +174,14 @@ class _FirstStepWidgetState extends State<FirstStepWidget> {
                           },
                         );
                       }
-                    },
-                  );
-                },
-              ),
+                    }
+                  },
+                );
+              },
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }
@@ -164,13 +189,15 @@ class _FirstStepWidgetState extends State<FirstStepWidget> {
 class PreItem extends StatelessWidget {
   final String text;
   final bool isSelected;
+  final bool isBlackTheme;
   final VoidCallback onClick;
-  const PreItem({
-    Key? key,
-    required this.text,
-    required this.isSelected,
-    required this.onClick,
-  }) : super(key: key);
+  const PreItem(
+      {Key? key,
+      required this.text,
+      required this.isSelected,
+      required this.onClick,
+      this.isBlackTheme = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -180,7 +207,11 @@ class PreItem extends StatelessWidget {
         duration: const Duration(milliseconds: 250),
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 18.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isSelected
+              ? isBlackTheme
+                  ? const Color(0xff131313)
+                  : Colors.white
+              : Colors.white,
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(
             color: isSelected
@@ -192,7 +223,9 @@ class PreItem extends StatelessWidget {
           text,
           style: TextStyle(
             color: isSelected
-                ? Theme.of(context).primaryColorDark
+                ? isBlackTheme
+                    ? Colors.white
+                    : Theme.of(context).primaryColorDark
                 : const Color(0xff808080),
           ),
         ),

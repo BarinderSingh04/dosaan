@@ -8,7 +8,7 @@ class SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemCount: 5,
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24.0),
       itemBuilder: (context, index) => const SecondStepWidget(),
       separatorBuilder: (context, index) => const Divider(
         thickness: 5.0,

@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dosaan">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
-        android:label="dosaan"
+        android:label="Doosan"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
