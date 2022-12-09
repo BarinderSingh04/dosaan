@@ -2,51 +2,73 @@ import 'package:flutter/material.dart';
 
 import '../../../config/config.dart';
 
-class SecondStepWidget extends StatefulWidget {
-  const SecondStepWidget({Key? key}) : super(key: key);
+class ToggleFormField extends FormField<int> {
+  final BuildContext context;
+  final String title;
 
-  @override
-  State<SecondStepWidget> createState() => _SecondStepWidgetState();
-}
-
-class _SecondStepWidgetState extends State<SecondStepWidget> {
-  int selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Do you find yourself struggling more?",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16.0,
-              color: Theme.of(context).primaryColorDark,
-            ),
-          ),
-          const SizedBox(height: 18.0),
-          Wrap(
-            runSpacing: 14.0,
-            children: List.generate(Config.step2Options.length, (index) {
-              final option = Config.step2Options[index];
-              return Step2Item(
-                isSelected: selectedIndex == index,
-                onClick: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-                text: option,
-              );
-            }),
-          )
-        ],
-      ),
-    );
-  }
+  ToggleFormField({
+    super.key,
+    required this.title,
+    required this.context,
+    FormFieldSetter<int>? onSaved,
+    FormFieldValidator<int>? validator,
+    int? initialValue,
+  }) : super(
+          onSaved: onSaved,
+          validator: validator,
+          initialValue: initialValue,
+          builder: (FormFieldState<int> state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                          color: Theme.of(context).primaryColorDark,
+                        ),
+                      ),
+                    ),
+                    if (state.hasError)
+                      Text(
+                        "Required",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.0,
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                      ),
+                  ],
+                ),
+                if (state.hasError)
+                  Divider(color: Theme.of(context).colorScheme.error),
+                SizedBox(height: state.hasError ? 8.0 : 16.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Wrap(
+                    runSpacing: 14.0,
+                    children:
+                        List.generate(Config.step2Options.length, (index) {
+                      final option = Config.step2Options[index];
+                      return Step2Item(
+                        text: option,
+                        isSelected: index == state.value,
+                        onClick: () {
+                          state.didChange(index);
+                          state.validate();
+                        },
+                      );
+                    }),
+                  ),
+                )
+              ],
+            );
+          },
+        );
 }
 
 class Step2Item extends StatelessWidget {

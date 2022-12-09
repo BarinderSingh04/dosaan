@@ -177,8 +177,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ],
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 16.0,
+              ),
               child: Wrap(
                 runSpacing: 16.0,
                 children: [

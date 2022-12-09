@@ -59,6 +59,14 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.3.2
   json_serializable: ^6.5.4
+  flutter_launcher_icons: ^0.11.0
+  easy_stepper: ^0.1.4+1
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.png"
+  remove_alpha_ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,6 +84,7 @@ flutter:
     - assets/images/
     - assets/images/2x/
     - assets/images/3x/
+    - assets/json/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

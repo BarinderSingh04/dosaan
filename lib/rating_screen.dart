@@ -2,7 +2,7 @@
 
 import 'package:dosaan/data_summary_screen.dart';
 import 'package:dosaan/login_screen.dart';
-import 'package:dosaan/screens/pre_form/widgets/first_step_widget.dart';
+import 'package:dosaan/screens/pre_form/widgets/selection_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:hand_signature/signature.dart';
 
@@ -59,7 +59,8 @@ class _RatingScreenState extends State<RatingScreen> {
               ],
             ),
             const SizedBox(height: 32),
-            const FirstStepWidget(
+            SelectionFormField(
+              context: context,
               title: "Rate your final Survey",
               isBlackTheme: true,
             ),
@@ -121,7 +122,8 @@ class _RatingScreenState extends State<RatingScreen> {
               alignment: Alignment.center,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  elevation: 0, backgroundColor: const Color(0xfff26b23),
+                  elevation: 0,
+                  backgroundColor: const Color(0xfff26b23),
                   fixedSize: Size(MediaQuery.of(context).size.width / 2, 50),
                 ),
                 onPressed: () {
