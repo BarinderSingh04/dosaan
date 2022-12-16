@@ -55,6 +55,40 @@
         ],
         "Engine": [
             {
+                "type": 5,
+                "note": "SPC (Smart Power Control) and Auto idle must be disabled prior to engine speed validations."
+            },
+            {
+                "type": 4,
+                "leading": "Low idle setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 4,
+                "leading": "P+ mode high idle setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 4,
+                "leading": "P+ mode hydroulic stall setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 4,
+                "leading": "P Mode High idle setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 4,
+                "leading": "S Mode High idle setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 4,
+                "leading": "E Mode High idle setting",
+                "trailing": "RPM"
+            },
+            {
                 "type": 1,
                 "question": "Performance"
             },

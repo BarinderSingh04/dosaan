@@ -1,3 +1,5 @@
+import 'package:dosaan/screens/pre_form/widgets/input_form_widget.dart';
+import 'package:dosaan/screens/pre_form/widgets/note_widget.dart';
 import 'package:dosaan/screens/pre_form/widgets/selection_form_field.dart';
 import 'package:dosaan/screens/pre_form/widgets/second_step_widget.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +59,20 @@ class _QuestionPageState extends State<QuestionPage>
                       const Divider(height: 0),
                     ],
                   );
+                } else if (questionMap["type"] == 4) {
+                  return InputFormField(
+                    context: context,
+                    leading: questionMap["leading"],
+                    trailing: questionMap["trailing"],
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Required";
+                      }
+                      return null;
+                    },
+                  );
+                } else if (questionMap["type"] == 5) {
+                  return NoteWidget(text: questionMap["note"]);
                 } else {
                   return ToggleFormField(
                     context: context,
