@@ -23,22 +23,22 @@ class StepperWidget extends StatelessWidget {
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: 80,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: PageView.builder(
-            padEnds: false,
-            scrollBehavior: ScrollConfiguration.of(context).copyWith(
-              scrollbars: false,
-              overscroll: true,
-            ),
-            controller: controller,
-            itemCount: itemCount,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              final isEnable = index <= selectedIndex;
-              final isRouteEnable = selectedIndex > index;
-              int step = index;
-              return InkWell(
+        child: PageView.builder(
+          padEnds: false,
+          scrollBehavior: ScrollConfiguration.of(context).copyWith(
+            scrollbars: false,
+            overscroll: true,
+          ),
+          controller: controller,
+          itemCount: itemCount,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            final isEnable = index <= selectedIndex;
+            final isRouteEnable = selectedIndex > index;
+            int step = index;
+            return Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: InkWell(
                 onTap: () {
                   onStepperTap(index);
                 },
@@ -74,9 +74,9 @@ class StepperWidget extends StatelessWidget {
                       ),
                   ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

@@ -25,7 +25,7 @@ class _PreWorkScreenState extends ConsumerState<PreWorkScreen> {
   int selectedIndex = 0;
   double scrollOffset = 0.0;
   final controller = PageController();
-  final stepperController = PageController(viewportFraction: 0.7);
+  final stepperController = PageController(viewportFraction: 0.5);
   final List<GlobalKey<FormState>> formKeys = [];
 
   @override
