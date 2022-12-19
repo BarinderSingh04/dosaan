@@ -9,7 +9,6 @@ import 'package:dosaan/services/machinetype_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'history_screen.dart';
 
 final machineListProvider = FutureProvider<List<Machine>>((ref) async {
   return ref.watch(machineServiceProvider).getMachineType();
@@ -151,8 +150,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     return Text(error.toString());
                   },
                   loading: () {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(
+                            Theme.of(context).primaryColor),
+                      ),
                     );
                   },
                 ),
@@ -174,31 +176,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ],
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 16.0,
+              ),
               child: Wrap(
                 runSpacing: 16.0,
-                children: const [
-                  HistoryItem(
-                    name: "Mini Excavator",
-                    date: "18/07/2020",
-                    model: "734TWYRR",
-                    miles: "342 km",
-                    year: "2018",
-                  ),
-                  HistoryItem(
-                    name: "Mini Excavator",
-                    date: "18/07/2020",
-                    model: "734TWYRR",
-                    miles: "342 km",
-                    year: "2018",
-                  ),
-                  HistoryItem(
-                    name: "Mini Excavator",
-                    date: "18/07/2020",
-                    model: "734TWYRR",
-                    miles: "342 km",
-                    year: "2018",
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    constraints: const BoxConstraints.tightFor(height: 150),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: const Color(0xffd7dae0),
+                      ),
+                    ),
+                    child: const Text("There is no survey submitted yet"),
                   ),
                 ],
               ),
@@ -239,6 +234,7 @@ class MachineItem extends StatelessWidget {
             ),
             child: Center(
               child: CachedNetworkImage(
+                color: Colors.white,
                 imageUrl: machineType.image,
                 placeholder: (context, url) => const CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation(Colors.grey),
@@ -247,8 +243,8 @@ class MachineItem extends StatelessWidget {
                   Icons.error,
                   color: Colors.white,
                 ),
-                width: 100,
-                height: 100,
+                width: 110,
+                height: 110,
               ),
             ),
           ),

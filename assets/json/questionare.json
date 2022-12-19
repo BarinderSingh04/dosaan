@@ -1,0 +1,129 @@
+{
+    "questions": {
+        "Electrical System": [
+            {
+                "type": 1,
+                "question": "Warning/Codes"
+            },
+            {
+                "type": 2,
+                "question": "All work"
+            },
+            {
+                "type": 1,
+                "question": "Gauges"
+            },
+            {
+                "type": 2,
+                "question": "All work"
+            },
+            {
+                "type": 1,
+                "question": "Load test batteries"
+            },
+            {
+                "type": 2,
+                "question": "Need charging"
+            },
+            {
+                "type": 1,
+                "question": "Work lights"
+            },
+            {
+                "type": 2,
+                "question": "Need replacing"
+            },
+            {
+                "type": 1,
+                "question": "Monitor Panel"
+            },
+            {
+                "type": 2,
+                "question": "All work"
+            }
+        ],
+        "Exterior & Cab": [
+            {
+                "type": 1,
+                "question": "Main frame",
+                "nodeId": null
+            },
+            {
+                "type": 2,
+                "question": "All work"
+            }
+        ],
+        "Engine": [
+            {
+                "type": 5,
+                "note": "SPC (Smart Power Control) and Auto idle must be disabled prior to engine speed validations."
+            },
+            {
+                "type": 4,
+                "leading": "Low idle setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 4,
+                "leading": "P+ mode high idle setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 4,
+                "leading": "P+ mode hydroulic stall setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 4,
+                "leading": "P Mode High idle setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 4,
+                "leading": "S Mode High idle setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 4,
+                "leading": "E Mode High idle setting",
+                "trailing": "RPM"
+            },
+            {
+                "type": 1,
+                "question": "Performance"
+            },
+            {
+                "type": 3,
+                "heading": "Oil Analysis",
+                "questions": [
+                    {
+                        "type": 2,
+                        "question": "Acceptable"
+                    },
+                    {
+                        "type": 1,
+                        "question": "Turbocharger"
+                    },
+                    {
+                        "type": 2,
+                        "question": "Leaks?"
+                    },
+                    {
+                        "type": 2,
+                        "question": "Unusual noises?"
+                    },
+                    {
+                        "type": 2,
+                        "question": "Leaks?"
+                    }
+                ]
+            }
+        ]
+    },
+    "notes": [
+        {
+            "nodeId": 1,
+            "note": "Warning lights are flashing"
+        }
+    ]
+}

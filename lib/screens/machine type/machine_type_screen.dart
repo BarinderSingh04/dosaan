@@ -177,6 +177,7 @@ class MachineTypeItem extends StatelessWidget {
                       ),
                       child: Center(
                         child: CachedNetworkImage(
+                          color: Colors.white,
                           imageUrl: machineType.image,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(
@@ -186,8 +187,8 @@ class MachineTypeItem extends StatelessWidget {
                             Icons.error,
                             color: Colors.white,
                           ),
-                          width: 100,
-                          height: 100,
+                          width: 110,
+                          height: 110,
                         ),
                       ),
                     ),
@@ -197,7 +198,9 @@ class MachineTypeItem extends StatelessWidget {
                     machineType.name,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: Theme.of(context).primaryColor,
+                      color: isSelected
+                          ? Theme.of(context).primaryColor
+                          : const Color(0xff808080),
                     ),
                   ),
                 ],
@@ -208,7 +211,7 @@ class MachineTypeItem extends StatelessWidget {
         Positioned(
           right: 0,
           child: AnimatedScale(
-            duration: const Duration(milliseconds: 250),
+            duration: const Duration(milliseconds: 200),
             scale: isSelected ? 1.0 : 0,
             child: Image.asset("assets/images/tick-circle.png"),
           ),

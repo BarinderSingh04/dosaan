@@ -46,7 +46,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       if (onBoarding != null) {
         if (token != null && user != null) {
           ref.read(userProvider.notifier).update((state) => state = user);
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => const HomeScreen(),
             ),

@@ -1,140 +1,140 @@
 import 'package:flutter/material.dart';
 
 class StepperWidget extends StatelessWidget {
-  final int index;
-  final void Function(int index) onStepperTap;
-  const StepperWidget(
-      {Key? key, required this.index, required this.onStepperTap})
-      : super(key: key);
+  final int selectedIndex;
+  final int itemCount;
+  final PageController controller;
+  final Map<String, dynamic> titleMap;
+  final void Function(int selectedIndex) onStepperTap;
+
+  const StepperWidget({
+    Key? key,
+    required this.selectedIndex,
+    required this.onStepperTap,
+    required this.controller,
+    required this.itemCount,
+    required this.titleMap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  StepWidget(
-                    step: 1,
-                    isEnable: index >= 0,
-                    onClick: () {
-                      onStepperTap(0);
-                    },
-                  ),
-                  Expanded(
-                    child: DividerWidget(
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 10,
-                      color: index >= 1
-                          ? Theme.of(context).primaryColor
-                          : const Color.fromARGB(255, 231, 231, 231),
-                    ),
-                  ),
-                  StepWidget(
-                    step: 2,
-                    isEnable: index >= 1,
-                    onClick: () {
-                      onStepperTap(1);
-                    },
-                  ),
-                  Expanded(
-                    child: DividerWidget(
-                      thickness: 2,
-                      indent: 10,
-                      endIndent: 10,
-                      color: index >= 2
-                          ? Theme.of(context).primaryColor
-                          : const Color.fromARGB(255, 231, 231, 231),
-                    ),
-                  ),
-                  StepWidget(
-                    step: 3,
-                    isEnable: index >= 2,
-                    onClick: () => onStepperTap(2),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 6.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: 80,
+        child: PageView.builder(
+          padEnds: false,
+          scrollBehavior: ScrollConfiguration.of(context).copyWith(
+            scrollbars: false,
+            overscroll: true,
+          ),
+          controller: controller,
+          itemCount: itemCount,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            final isEnable = index <= selectedIndex;
+            final isRouteEnable = selectedIndex > index;
+            int step = index;
+            return Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: InkWell(
+                onTap: () {
+                  onStepperTap(index);
+                },
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(
-                    3,
-                    (i) {
-                      int step = i;
-                      return Text(
-                        "Step ${++step}",
+                  children: [
+                    StepWidget(
+                      step: ++step,
+                      isEnable: isEnable,
+                    ),
+                    const SizedBox(width: 12.0),
+                    Expanded(
+                      child: Text(
+                        titleMap.keys.elementAt(index),
                         style: TextStyle(
-                          color: i <= index
+                          fontSize: 14,
+                          color: isEnable
                               ? Theme.of(context).primaryColor
                               : const Color(0xff808080),
-                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                    if ((index + 1) != itemCount)
+                      Expanded(
+                        child: DividerWidget(
+                          thickness: 2,
+                          indent: 10,
+                          endIndent: 10,
+                          color: isRouteEnable
+                              ? Theme.of(context).primaryColor
+                              : const Color.fromARGB(255, 231, 231, 231),
+                        ),
+                      ),
+                  ],
                 ),
-              )
-            ],
-          ),
+              ),
+            );
+          },
         ),
-      ],
+      ),
     );
   }
 }
 
 class StepWidget extends StatelessWidget {
   final int step;
-  final VoidCallback? onClick;
   final bool isEnable;
 
   const StepWidget({
     Key? key,
     required this.step,
     required this.isEnable,
-    required this.onClick,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onClick,
-      child: Column(
-        children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            width: 48,
-            height: 48,
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isEnable ? null : const Color(0xfff8f9fd),
-              border: isEnable
-                  ? Border.all(
-                      width: 1.2,
-                      color: Theme.of(context).primaryColor,
-                    )
-                  : null,
-            ),
-            child: Center(
-              child: Text(
-                "0$step",
-                style: TextStyle(
-                  color: isEnable
-                      ? Theme.of(context).primaryColorDark
-                      : const Color(0xff808080),
-                  fontWeight: FontWeight.w700,
-                ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          width: 48,
+          height: 48,
+          padding: const EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isEnable ? null : const Color(0xfff8f9fd),
+            border: isEnable
+                ? Border.all(
+                    width: 1.2,
+                    color: Theme.of(context).primaryColor,
+                  )
+                : null,
+          ),
+          child: Center(
+            child: Text(
+              "0$step",
+              style: TextStyle(
+                color: isEnable
+                    ? Theme.of(context).primaryColorDark
+                    : const Color(0xff808080),
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
-        ],
-      ),
+        ),
+        // Text(
+        //   "Step $step",
+        //   style: TextStyle(
+        //     color: isEnable
+        //         ? Theme.of(context).primaryColor
+        //         : const Color(0xff808080),
+        //     fontSize: 12,
+        //   ),
+        // ),
+      ],
     );
   }
 }
@@ -145,19 +145,20 @@ class DividerWidget extends StatelessWidget {
   final double indent;
   final double endIndent;
 
-  const DividerWidget(
-      {Key? key,
-      required this.thickness,
-      required this.color,
-      required this.indent,
-      required this.endIndent})
-      : super(key: key);
+  const DividerWidget({
+    Key? key,
+    required this.thickness,
+    required this.color,
+    required this.indent,
+    required this.endIndent,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 250),
-      height: 0.0,
+      duration: const Duration(milliseconds: 200),
+      width: 50,
+      height: thickness,
       margin: EdgeInsetsDirectional.only(start: indent, end: endIndent),
       decoration: BoxDecoration(
         border: Border(
@@ -167,3 +168,59 @@ class DividerWidget extends StatelessWidget {
     );
   }
 }
+
+// Padding(
+//                         padding: const EdgeInsets.only(bottom: 16.0),
+//                         child: Text(
+//                           titleMap.keys.elementAt(index),
+//                           style: TextStyle(
+//                             fontSize: 16,
+//                             color: isEnable
+//                                 ? Theme.of(context).primaryColor
+//                                 : const Color(0xff808080),
+//                             fontWeight: FontWeight.w600,
+//                           ),
+//                         ),
+//                       ),
+
+//  return Padding(
+//       padding: const EdgeInsets.symmetric(vertical: 4),
+//       child: SizedBox(
+//         width: MediaQuery.of(context).size.width,
+//         height: 80,
+//         child: ListView.separated(
+//           padding: const EdgeInsets.symmetric(horizontal: 24),
+//           itemCount: itemCount,
+//           scrollDirection: Axis.horizontal,
+//           itemBuilder: (context, index) {
+//             int step = index;
+//             final isEnable = index <= selectedIndex;
+//             return StepWidget(
+//               step: ++step,
+//               isEnable: isEnable,
+//               onClick: () {
+//                 onStepperTap(index);
+//               },
+//             );
+//           },
+//           separatorBuilder: (BuildContext context, int index) {
+//             final isEnable = selectedIndex > index;
+//             return Align(
+//               alignment: Alignment.center,
+//               child: Padding(
+//                 padding: const EdgeInsets.only(bottom: 16.0),
+//                 child: DividerWidget(
+//                   lenght: itemCount,
+//                   thickness: 2,
+//                   indent: 10,
+//                   endIndent: 10,
+//                   color: isEnable
+//                       ? Theme.of(context).primaryColor
+//                       : const Color.fromARGB(255, 231, 231, 231),
+//                 ),
+//               ),
+//             );
+//           },
+//         ),
+//       ),
+//     );
