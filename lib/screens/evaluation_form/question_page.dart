@@ -1,7 +1,7 @@
-import 'package:dosaan/screens/pre_form/widgets/input_form_widget.dart';
-import 'package:dosaan/screens/pre_form/widgets/note_widget.dart';
-import 'package:dosaan/screens/pre_form/widgets/selection_form_field.dart';
-import 'package:dosaan/screens/pre_form/widgets/second_step_widget.dart';
+import 'package:dosaan/screens/evaluation_form/widgets/input_form_widget.dart';
+import 'package:dosaan/screens/evaluation_form/widgets/note_widget.dart';
+import 'package:dosaan/screens/evaluation_form/widgets/selection_form_field.dart';
+import 'package:dosaan/screens/evaluation_form/widgets/toggle_form_field.dart';
 import 'package:flutter/material.dart';
 
 class QuestionPage extends StatefulWidget {
@@ -64,15 +64,36 @@ class _QuestionPageState extends State<QuestionPage>
                     context: context,
                     leading: questionMap["leading"],
                     trailing: questionMap["trailing"],
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Required";
-                      }
-                      return null;
-                    },
                   );
                 } else if (questionMap["type"] == 5) {
                   return NoteWidget(text: questionMap["note"]);
+                } else if (questionMap["type"] == 6) {
+                  final questions = questionMap["questions"] as List;
+                  return Wrap(
+                    runSpacing: 16.0,
+                    children: questions
+                        .map(
+                          (e) => Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: const Color(0xfff8f9fd),
+                              border: Border.all(
+                                color: Colors.grey[200]!,
+                                width: 1.5,
+                              ),
+                            ),
+                            child: Wrap(
+                              runSpacing: 16,
+                              children: questionWidget(
+                                questions,
+                                padding: const EdgeInsets.all(8.0),
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  );
                 } else {
                   return ToggleFormField(
                     context: context,
@@ -93,13 +114,14 @@ class _QuestionPageState extends State<QuestionPage>
     );
   }
 
-  List<Widget> questionWidget(List<dynamic> questions) {
+  List<Widget> questionWidget(List<dynamic> questions, {EdgeInsets? padding}) {
     return questions.map<Widget>((e) {
       if (e["type"] == 1) {
         return SelectionFormField(
           title: e["question"],
           context: context,
           isBlackTheme: false,
+          padding: padding,
           validator: (value) {
             if (value == null) {
               return "Required";

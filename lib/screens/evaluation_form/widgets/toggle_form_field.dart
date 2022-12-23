@@ -46,11 +46,11 @@ class ToggleFormField extends FormField<int> {
                 ),
                 if (state.hasError)
                   Divider(color: Theme.of(context).colorScheme.error),
-                SizedBox(height: state.hasError ? 8.0 : 16.0),
+                SizedBox(height: state.hasError ? 0.0 : 8.0),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
                   child: Wrap(
-                    runSpacing: 14.0,
+                    spacing: 24.0,
                     children:
                         List.generate(Config.step2Options.length, (index) {
                       final option = Config.step2Options[index];
@@ -84,32 +84,34 @@ class Step2Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onClick,
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 250),
-        child: Row(
-          key: ValueKey<bool>(isSelected),
-          children: [
-            Image.asset(
-              isSelected
-                  ? "assets/images/checkbox_s.png"
-                  : "assets/images/checkbox.png",
-              width: 24,
-              height: 24,
-            ),
-            const SizedBox(width: 12.0),
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 15,
-                color: isSelected
-                    ? Theme.of(context).primaryColorDark
-                    : const Color(0xff808080),
-              ),
-            ),
-          ],
+    return TextButton.icon(
+      style: ButtonStyle(
+        overlayColor: MaterialStateProperty.all(
+          Theme.of(context).primaryColor.withOpacity(0.2),
         ),
+        foregroundColor: MaterialStateProperty.resolveWith((states) {
+          return isSelected
+              ? Theme.of(context).primaryColorDark
+              : const Color(0xff808080);
+        }),
+      ),
+      icon: DecoratedBox(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+        ),
+        child: Image.asset(
+          isSelected
+              ? "assets/images/checkbox_s.png"
+              : "assets/images/checkbox.png",
+          width: 24,
+          height: 24,
+        ),
+      ),
+      onPressed: onClick,
+      label: Text(
+        text,
+        style: const TextStyle(fontSize: 15),
       ),
     );
   }

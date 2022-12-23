@@ -11,12 +11,14 @@ class SelectionFormField extends FormField<QuestionState> {
   final BuildContext context;
   final bool isBlackTheme;
   final String title;
+  final EdgeInsets? padding;
 
   SelectionFormField({
     super.key,
     required this.title,
     required this.context,
     required this.isBlackTheme,
+    this.padding,
     FormFieldSetter<QuestionState>? onSaved,
     FormFieldValidator<QuestionState>? validator,
     QuestionState? initialValue,
@@ -55,11 +57,13 @@ class SelectionFormField extends FormField<QuestionState> {
                 const SizedBox(height: 12.0),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(24),
+                  padding: padding ?? const EdgeInsets.all(24),
                   decoration: BoxDecoration(
                     border: state.hasError
                         ? Border.all(
-                            color: Theme.of(context).primaryColor, width: 0.5)
+                            color: Theme.of(context).primaryColor,
+                            width: 0.5,
+                          )
                         : null,
                     color: isBlackTheme
                         ? const Color(0xff131313)
@@ -80,7 +84,7 @@ class SelectionFormField extends FormField<QuestionState> {
                           isBlackTheme: isBlackTheme,
                           isSelected: state.value?.optionSelected == index,
                           onClick: () async {
-                            if (index == 3 || index == 4) {
+                            if (index > 1) {
                               final QuestionState? qState =
                                   await showModalBottomSheet(
                                 context: context,
@@ -336,35 +340,43 @@ class PreItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onClick,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 18.0),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? isBlackTheme
-                  ? const Color(0xff131313)
-                  : Colors.white
-              : Colors.white,
-          borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(
-            color: isSelected
-                ? Theme.of(context).primaryColor
-                : const Color(0xffd7dae0),
-          ),
+    return OutlinedButton(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.resolveWith((states) {
+          if (isSelected) {
+            if (isBlackTheme) {
+              return Colors.white;
+            }
+            return Theme.of(context).primaryColorDark;
+          } else {
+            return const Color(0xff808080);
+          }
+        }),
+        padding: MaterialStateProperty.all(
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0)),
+        backgroundColor: MaterialStateProperty.resolveWith((states) {
+          if (isSelected && isBlackTheme) {
+            return Colors.black;
+          }
+          return Colors.white;
+        }),
+        overlayColor: MaterialStateProperty.all(
+          Theme.of(context).primaryColor.withOpacity(0.3),
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: isSelected
-                ? isBlackTheme
-                    ? Colors.white
-                    : Theme.of(context).primaryColorDark
-                : const Color(0xff808080),
-          ),
-        ),
+        side: MaterialStateProperty.resolveWith<BorderSide>((states) {
+          if (isSelected) {
+            if (isBlackTheme) {
+              return BorderSide(
+                  color: Theme.of(context).primaryColor, width: 1.5);
+            }
+            return BorderSide(
+                color: Theme.of(context).primaryColor, width: 1.5);
+          }
+          return const BorderSide(color: Color(0xffd7dae0));
+        }),
       ),
+      onPressed: onClick,
+      child: Text(text),
     );
   }
 }

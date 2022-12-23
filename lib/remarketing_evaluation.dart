@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:dosaan/config/validators.dart';
 import 'package:dosaan/login_screen.dart';
-import 'package:dosaan/screens/pre_form/pre_work_screen.dart';
+import 'package:dosaan/screens/evaluation_form/evaluation_screen.dart';
+import 'package:dosaan/screens/evaluation_form/widgets/toggle_form_field.dart';
+import 'package:dosaan/screens/widgets/primary_button.dart';
 import 'package:dosaan/services/machinetype_service.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +14,7 @@ import 'package:intl/intl.dart';
 
 import 'models/machine.dart';
 import 'screens/filter/filter_screen.dart';
+import 'screens/pre_work_form/prework_screen.dart';
 
 final modelsProvider =
     FutureProvider.autoDispose.family<List<Model>, int>((ref, id) async {
@@ -126,43 +129,59 @@ class _RemarketingEvaluationState extends ConsumerState<RemarketingEvaluation> {
                   ),
                 ),
                 const SizedBox(height: 6),
-                dropDownWidget(
-                  serialsState,
-                  "Select a serial",
-                ),
+                dropDownWidget(serialsState, "Select a serial"),
                 const SizedBox(height: 16),
-                const Text(
-                  "Hours",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xff231f20),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: "Enter hours",
-                  ),
-                  validator: (value) => ref
-                      .read(validatorsProvider)
-                      .validate(value, "Hours field can't be empty."),
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  "Year",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xff231f20),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                TextFormField(
-                  decoration: const InputDecoration(hintText: "Enter year"),
-                  validator: (value) => ref
-                      .read(validatorsProvider)
-                      .validate(value, "Year field can't be empty."),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Hours",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xff231f20),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: "Enter hours",
+                            ),
+                            validator: (value) => ref
+                                .read(validatorsProvider)
+                                .validate(value, "Hours field can't be empty."),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 24),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Year",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xff231f20),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(hintText: "Enter year"),
+                            validator: (value) => ref
+                                .read(validatorsProvider)
+                                .validate(value, "Year field can't be empty."),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
                 const SizedBox(height: 16),
                 const Text(
@@ -246,17 +265,22 @@ class _RemarketingEvaluationState extends ConsumerState<RemarketingEvaluation> {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 29),
+                const SizedBox(height: 16),
+                ToggleFormField(
+                  title: "Auxiliary Hydraulics?",
+                  context: context,
+                ),
+                const SizedBox(height: 16),
+                ToggleFormField(
+                  title: "Any Special Configuration?",
+                  context: context,
+                ),
+                const SizedBox(height: 28),
                 Align(
                   alignment: Alignment.center,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: const Color(0xfff26b23),
-                      fixedSize:
-                          Size(MediaQuery.of(context).size.width / 2, 50),
-                    ),
-                    onPressed: () {
+                  child: PrimaryButton(
+                    title: "Next",
+                    onClick: () {
                       if (fKey.currentState!.validate()) {
                         Navigator.of(context).push(
                           MaterialPageRoute(
@@ -265,13 +289,6 @@ class _RemarketingEvaluationState extends ConsumerState<RemarketingEvaluation> {
                         );
                       }
                     },
-                    child: const Text(
-                      "Next",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                   ),
                 ),
               ],
