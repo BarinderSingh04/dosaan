@@ -18,66 +18,63 @@ class StepperWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: 80,
-        child: PageView.builder(
-          padEnds: false,
-          scrollBehavior: ScrollConfiguration.of(context).copyWith(
-            scrollbars: false,
-            overscroll: true,
-          ),
-          controller: controller,
-          itemCount: itemCount,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            final isEnable = index <= selectedIndex;
-            final isRouteEnable = selectedIndex > index;
-            int step = index;
-            return Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: InkWell(
-                onTap: () {
-                  onStepperTap(index);
-                },
-                child: Row(
-                  children: [
-                    StepWidget(
-                      step: ++step,
-                      isEnable: isEnable,
-                    ),
-                    const SizedBox(width: 12.0),
-                    Expanded(
-                      child: Text(
-                        titleMap.keys.elementAt(index),
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: isEnable
-                              ? Theme.of(context).primaryColor
-                              : const Color(0xff808080),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    if ((index + 1) != itemCount)
-                      Expanded(
-                        child: DividerWidget(
-                          thickness: 2,
-                          indent: 10,
-                          endIndent: 10,
-                          color: isRouteEnable
-                              ? Theme.of(context).primaryColor
-                              : const Color.fromARGB(255, 231, 231, 231),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            );
-          },
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 80,
+      child: PageView.builder(
+        padEnds: false,
+        scrollBehavior: ScrollConfiguration.of(context).copyWith(
+          scrollbars: false,
+          overscroll: true,
         ),
+        controller: controller,
+        itemCount: itemCount,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          final isEnable = index <= selectedIndex;
+          final isRouteEnable = selectedIndex > index;
+          int step = index;
+          return Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: InkWell(
+              onTap: () {
+                onStepperTap(index);
+              },
+              child: Row(
+                children: [
+                  StepWidget(
+                    step: ++step,
+                    isEnable: isEnable,
+                  ),
+                  const SizedBox(width: 12.0),
+                  Expanded(
+                    child: Text(
+                      titleMap.keys.elementAt(index),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: isEnable
+                            ? Theme.of(context).primaryColor
+                            : const Color(0xff808080),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  if ((index + 1) != itemCount)
+                    Expanded(
+                      child: DividerWidget(
+                        thickness: 2,
+                        indent: 10,
+                        endIndent: 10,
+                        color: isRouteEnable
+                            ? Theme.of(context).primaryColor
+                            : const Color.fromARGB(255, 231, 231, 231),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

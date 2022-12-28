@@ -7,6 +7,15 @@ class Config {
     "E. Remove and Replace",
   ];
 
+  static final List<String> prework = [
+    "Collect all warranty data on the machine",
+    "Maintenance History",
+    "Open Field Modifications",
+    "Doosan Connect Data",
+    "Pull all Call Tracs History",
+    "Print serial number build sheet",
+  ];
+
   static final List<String> models = [
     "734TWYRR",
     "954TWYRT",

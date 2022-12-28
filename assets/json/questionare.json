@@ -44,9 +44,16 @@
         ],
         "Exterior & Cab": [
             {
-                "type": 1,
-                "question": "Main frame",
-                "nodeId": null
+                "type": 6,
+                "questions": [
+                    {
+                        "1": "Main frame (Upperstructure)",
+                        "2": {
+                            "question": "Cracked Or Welded",
+                            "validation": true
+                        }
+                    }
+                ]
             },
             {
                 "type": 2,
@@ -117,6 +124,17 @@
                         "question": "Leaks?"
                     }
                 ]
+            }
+        ],
+        "Exterior & Cabs": [
+            {
+                "type": 1,
+                "question": "Main frame",
+                "nodeId": null
+            },
+            {
+                "type": 2,
+                "question": "All work"
             }
         ]
     },
