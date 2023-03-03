@@ -1,5 +1,3 @@
-import 'package:dosaan/screens/evaluation_form/evaluation_screen.dart';
-import 'package:dosaan/screens/pre_work_form/prework_screen.dart';
 import 'package:dosaan/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,13 +53,13 @@ class MyApp extends StatelessWidget {
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).errorColor,
+              color: Theme.of(context).colorScheme.error,
               width: 2,
             ),
           ),
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).errorColor,
+              color: Theme.of(context).colorScheme.error,
               width: 2,
             ),
           ),

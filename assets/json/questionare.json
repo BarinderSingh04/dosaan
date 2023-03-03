@@ -45,19 +45,30 @@
         "Exterior & Cab": [
             {
                 "type": 6,
+                "validations": true,
                 "questions": [
                     {
-                        "1": "Main frame (Upperstructure)",
-                        "2": {
-                            "question": "Cracked Or Welded",
-                            "validation": true
-                        }
+                        "type": 1,
+                        "question": "Main frame (Upperstructure)"
+                    },
+                    {
+                        "type": 2,
+                        "question": "Cracked Or Welded"
                     }
                 ]
             },
             {
-                "type": 2,
-                "question": "All work"
+                "type": 6,
+                "questions": [
+                    {
+                        "type": 1,
+                        "question": "Cab"
+                    },
+                    {
+                        "type": 2,
+                        "question": "Dents Or Damage"
+                    }
+                ]
             }
         ],
         "Engine": [
@@ -103,6 +114,8 @@
                 "type": 3,
                 "heading": "Oil Analysis",
                 "questions": [
+
+
                     {
                         "type": 2,
                         "question": "Acceptable"

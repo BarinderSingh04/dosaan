@@ -1,4 +1,5 @@
 import 'package:dosaan/models/machine.dart';
+import 'package:dosaan/models/survey_model.dart';
 import 'package:dosaan/services/api_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,25 +21,37 @@ class MachineService {
       rethrow;
     }
   }
-  
 
   Future<List<Model>> getModels(int machineId) async {
     try {
-      final response = await _apiService.getRequest("/surveyor/machines/$machineId/models");
+      final response =
+          await _apiService.getRequest("/surveyor/machines/$machineId/models");
       final jsonResponse = response["data"] as List<dynamic>;
       return jsonResponse.map((e) => Model.fromJson(e)).toList();
     } catch (e) {
       rethrow;
     }
-  } 
+  }
 
   Future<List<Serial>> getSerials(int machineId) async {
     try {
-      final response = await _apiService.getRequest("/surveyor/machines/$machineId/serials");
+      final response =
+          await _apiService.getRequest("/surveyor/machines/$machineId/serials");
       final jsonResponse = response["data"] as List<dynamic>;
       return jsonResponse.map((e) => Serial.fromJson(e)).toList();
     } catch (e) {
       rethrow;
     }
-  } 
+  }
+
+  Future<List<SurveyModel>> getSurveyModel() async {
+    try {
+      final response = await _apiService
+          .getRequest("/surveyor/machines/1/fields", headersRequired: true);
+      final jsonResponse = response as List<dynamic>;
+      return jsonResponse.map((e) => SurveyModel.fromJson(e)).toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

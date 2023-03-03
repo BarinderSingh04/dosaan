@@ -69,30 +69,23 @@ class _QuestionPageState extends State<QuestionPage>
                   return NoteWidget(text: questionMap["note"]);
                 } else if (questionMap["type"] == 6) {
                   final questions = questionMap["questions"] as List;
-                  return Wrap(
-                    runSpacing: 16.0,
-                    children: questions
-                        .map(
-                          (e) => Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: const Color(0xfff8f9fd),
-                              border: Border.all(
-                                color: Colors.grey[200]!,
-                                width: 1.5,
-                              ),
-                            ),
-                            child: Wrap(
-                              runSpacing: 16,
-                              children: questionWidget(
-                                questions,
-                                padding: const EdgeInsets.all(8.0),
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
+                  return Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: const Color(0xfff8f9fd),
+                      border: Border.all(
+                        color: Colors.grey[200]!,
+                        width: 1.5,
+                      ),
+                    ),
+                    child: Wrap(
+                      runSpacing: 16,
+                      children: questionWidget(
+                        questions,
+                        padding: const EdgeInsets.all(8.0),
+                      ),
+                    ),
                   );
                 } else {
                   return ToggleFormField(

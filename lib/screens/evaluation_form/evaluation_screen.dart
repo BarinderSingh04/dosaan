@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dosaan/login_screen.dart';
 import 'package:dosaan/rating_screen.dart';
+import 'package:dosaan/screens/evaluation_form/form_notifier.dart';
 import 'package:dosaan/screens/evaluation_form/question_page.dart';
 import 'package:dosaan/screens/evaluation_form/widgets/stepper_widget.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,12 @@ class _EvaluationScreenState extends ConsumerState<EvaluationScreen> {
   final controller = PageController();
   final stepperController = PageController(viewportFraction: 0.6);
   final List<GlobalKey<FormState>> formKeys = [];
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(surveyListProvider);
+  }
 
   @override
   Widget build(BuildContext context) {

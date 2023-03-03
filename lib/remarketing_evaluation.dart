@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dosaan/config/validators.dart';
 import 'package:dosaan/login_screen.dart';
-import 'package:dosaan/screens/evaluation_form/evaluation_screen.dart';
 import 'package:dosaan/screens/evaluation_form/widgets/toggle_form_field.dart';
 import 'package:dosaan/screens/widgets/primary_button.dart';
 import 'package:dosaan/services/machinetype_service.dart';

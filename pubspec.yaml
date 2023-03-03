@@ -33,19 +33,21 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  dotted_border: ^2.0.0+2
-  carousel_slider: ^4.1.1
-  hand_signature: ^2.3.0+1
-  table_calendar: ^3.0.7
-  flutter_riverpod: ^2.1.1
-  json_annotation: ^4.7.0
+  cupertino_icons: ^1.0.5
+  dotted_border: ^2.0.0+3
+  carousel_slider: ^4.2.1
+  hand_signature: ^3.0.0
+  table_calendar: ^3.0.9
+  flutter_riverpod: ^2.2.0
+  json_annotation: ^4.8.0
   dio: ^4.0.6
-  shared_preferences: ^2.0.15
-  flutter_secure_storage: ^6.0.0
-  cached_network_image: ^3.2.2
-  intl: ^0.17.0
-  image_picker: ^0.8.6
+  shared_preferences: ^2.0.17
+  flutter_secure_storage: ^8.0.0
+  cached_network_image: ^3.2.3
+  intl: ^0.18.0
+  image_picker: ^0.8.6+1
+  collection: ^1.16.0
+
 
 dev_dependencies:
   flutter_test:
@@ -56,11 +58,11 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.1
   build_runner: ^2.3.2
   json_serializable: ^6.5.4
   flutter_launcher_icons: ^0.11.0
-  easy_stepper: ^0.1.4+1
+  easy_stepper: ^0.3.1
 
 flutter_icons:
   android: "launcher_icon"
